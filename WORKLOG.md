@@ -1,22 +1,22 @@
 # Work Log
 
-## GROUP MEMBER 1
+## Spencer Anderson
 
-### date x
-
-info
-
-### date y
-
-info
+### 5/22/24
 
 
-## GROUP MEMBER 2
 
-### date x
+### 5/23/24
 
 info
 
-### date y
+
+## Spencer Klem
+
+### 5/22/24
+
+
+
+### 5/23/24
 
 info
