@@ -4,7 +4,8 @@
 
 ### 5/22/24
 
-Started setting up files and copying code we've already made like for XOR
+Started setting up files and copying code we've already made like for XOR.
+Added makefile
 
 ### 5/23/24
 
