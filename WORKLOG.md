@@ -4,7 +4,7 @@
 
 ### 5/22/24
 
-
+Started setting up files and copying code we've already made like for XOR
 
 ### 5/23/24
 
