@@ -9,7 +9,8 @@ Added makefile
 
 ### 5/23/24
 
-info
+Added way to save Hex to a file
+Started working on splitting text into the length of the key
 
 
 ## Spencer Klem
