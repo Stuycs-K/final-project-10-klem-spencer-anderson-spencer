@@ -1,4 +1,9 @@
 import sys
+import math
+key = 10927958327329
+nonce = 47563948573905
+
+
 ###### ENCODER
 ### STEP 0: SPLIT PLAINTEXT INTO BLOCKS
 ### STEP 1: NONCE, COUNTER
@@ -15,6 +20,17 @@ import sys
 
 ### STEP 2: COMBINE INTO BLOCKNUM
 ### STEP 3: 4x4 HEX PLAYFAIR
+
+#no worky
+def splitText(text, length):
+    sects = math.ceil(len(text)/length)
+    i = 0
+    finArray = []
+    while( i<sects):
+        print("hi") #no worky
+
+
+
 def hexplayfair (num1, num2):
     
     hexAr = [[0x0, 0x1, 0x2, 0x3],
