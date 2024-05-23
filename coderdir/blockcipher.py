@@ -12,6 +12,7 @@ import sys
 ###### DECODER
 ### STEP 0: SPLIT CIPHERTEXT INTO BLOCKS
 ### STEP 1: NONCE, COUNTER
+
 ### STEP 2: COMBINE INTO BLOCKNUM
 ### STEP 3: 4x4 HEX PLAYFAIR
 def hexplayfair (num1, num2):
@@ -21,6 +22,13 @@ def hexplayfair (num1, num2):
              [0x8, 0x9, 0xa, 0xb],
              [0xc, 0xd, 0xe, 0xf]]
     pass
+
+def saveHex(arr, filename):
+    with open(filename, 'wb+') as f:
+        for a in arr:
+            f.write(bytes((a,)))
+
+
 
 ### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
 ### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
@@ -69,4 +77,6 @@ def runner():
 
 #runner()
 
-print(0xd ^ 0x1)
+# x = [0x1,0x2,0x3, 0xa, 0xff]
+# saveHex(x, "testing")
+# print(hexdump("testing"))
