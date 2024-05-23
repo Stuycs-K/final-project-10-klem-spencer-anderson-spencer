@@ -15,13 +15,22 @@ import sys
 ### STEP 2: COMBINE INTO BLOCKNUM
 ### STEP 3: 4x4 HEX PLAYFAIR
 def hexplayfair (num1, num2):
-    
     hexAr = [[0x0, 0x1, 0x2, 0x3],
              [0x4, 0x5, 0x6, 0x7],
              [0x8, 0x9, 0xa, 0xb],
              [0xc, 0xd, 0xe, 0xf]]
-    pass
-
+    finAr = []
+    hex1 = hex(num1)[2:]
+    hex2 = hex(num2)[2:]
+    pos = 0
+    while pos < len(hex1):
+        i = int(hex1[pos], 16)
+        j = int(hex2[pos], 16)
+        finAr.append(hexAr[i % 4][j / 4])
+        finAr.append(hexAr[j % 4][i / 4])
+        pos += 1
+    
+    return finAr
 ### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
 ### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
 ### STEP 6: REPEAT 
@@ -69,4 +78,4 @@ def runner():
 
 #runner()
 
-print(0xd ^ 0x1)
+hexplayfair(32, 32)
