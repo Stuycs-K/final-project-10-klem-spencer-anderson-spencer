@@ -20,4 +20,4 @@ Added files for coding and made sure the XOR worked. Also set up plan for what w
 
 ### 5/23/24
 
-info
+Implemented the hexplayfair cipher given 2 integer numbers.
