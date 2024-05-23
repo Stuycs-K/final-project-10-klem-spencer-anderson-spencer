@@ -1,4 +1,9 @@
 import sys
+import math
+key = 10927958327329
+nonce = 47563948573905
+
+
 ###### ENCODER
 ### STEP 0: SPLIT PLAINTEXT INTO BLOCKS
 ### STEP 1: NONCE, COUNTER
@@ -12,8 +17,20 @@ import sys
 ###### DECODER
 ### STEP 0: SPLIT CIPHERTEXT INTO BLOCKS
 ### STEP 1: NONCE, COUNTER
+
 ### STEP 2: COMBINE INTO BLOCKNUM
 ### STEP 3: 4x4 HEX PLAYFAIR
+
+#no worky
+def splitText(text, length):
+    sects = math.ceil(len(text)/length)
+    i = 0
+    finArray = []
+    while( i<sects):
+        print("hi") #no worky
+
+
+
 def hexplayfair (num1, num2):
     hexAr = [[0x0, 0x1, 0x2, 0x3],
              [0x4, 0x5, 0x6, 0x7],
@@ -31,6 +48,15 @@ def hexplayfair (num1, num2):
         pos += 1
     
     return finAr
+    pass
+
+def saveHex(arr, filename):
+    with open(filename, 'wb+') as f:
+        for a in arr:
+            f.write(bytes((a,)))
+
+
+
 ### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
 ### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
 ### STEP 6: REPEAT 
@@ -79,3 +105,6 @@ def runner():
 #runner()
 
 hexplayfair(32, 32)
+# x = [0x1,0x2,0x3, 0xa, 0xff]
+# saveHex(x, "testing")
+# print(hexdump("testing"))
