@@ -27,9 +27,6 @@ def splitText(text, length):
     i = 0
     finArray = []
     while( i<sects):
-        # if(i == sects -1):
-        #     finArray.append(text[i*length:])
-        # else
         finArray.append(text[i*length:(i+1)*length])
         i +=1
     return finArray
