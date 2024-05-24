@@ -21,5 +21,7 @@ Added files for coding and made sure the XOR worked. Also set up plan for what w
 
 
 ### 5/23/24
-
 Implemented the hexplayfair cipher given 2 integer numbers.
+
+### 5/24/24
+Cleaned up code and variables, fixed up hexplayfair so it actually works now (probably).
