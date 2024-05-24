@@ -94,11 +94,15 @@ def decode(inputCiphertextfile, keyfile):
             i += 1
     return finStr
 
-def runner():
-    if sys.argv[1] == 'hexdump':
-        print(hexdump(sys.argv[2]))    
-    elif sys.argv[1] == 'encode':
-        encode(sys.argv[2], sys.argv[3], sys.argv[4])
+def blockkey(key, nonce):
+    blockkey = hexplayfair(key,nonce)
+    saveHex(blockkey, "blockkey")
+    
+def walker():   
+    if sys.argv[1] == 'encode':
+        blockkey(key,nonce)
+
+        encode(sys.argv[2], "blockkey", sys.argv[3])
     elif sys.argv[1] == 'decode':
         print(decode(sys.argv[2], sys.argv[3]))
 
