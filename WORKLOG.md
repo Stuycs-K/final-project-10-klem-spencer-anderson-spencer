@@ -11,6 +11,7 @@ Added makefile
 
 Added way to save Hex to a file
 Started working on splitting text into the length of the key
+Added commands to makefile
 
 
 ## Spencer Klem

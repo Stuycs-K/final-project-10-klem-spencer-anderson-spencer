@@ -27,8 +27,12 @@ def splitText(text, length):
     i = 0
     finArray = []
     while( i<sects):
-        print("hi") #no worky
-
+        # if(i == sects -1):
+        #     finArray.append(text[i*length:])
+        # else
+        finArray.append(text[i*length:(i+1)*length])
+        i +=1
+    return finArray
 
 
 def hexplayfair (num1, num2):
@@ -104,7 +108,10 @@ def runner():
 
 #runner()
 
-hexplayfair(32, 32)
+#hexplayfair(32, 32)
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
 # print(hexdump("testing"))
+text = "hi how are you doing. This is a secret message"
+length = 5
+print(splitText(text, length))
