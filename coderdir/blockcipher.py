@@ -1,7 +1,7 @@
 import sys
 import math
-key = 10927958327329
-nonce = 47563948573905
+key = 0x1092795f32a7329
+nonce = 0x4756394e85c73905
 
 
 ###### ENCODER
@@ -44,21 +44,24 @@ def hexplayfair (num1, num2):
     hex2 = hex(num2)[2:]
     pos = 0
     while pos < len(hex1):
+        app = False
         i = int(hex1[pos], 16)
         j = int(hex2[pos], 16)
         row1 = i % 4
         row2 = j % 4
-        col1 = i / 4
-        col2 = j / 4
+        col1 = i // 4
+        col2 = j // 4
         if row1 == row2:
             finAr.append(hexAr[row1][(col1 + colShift)  % 4])
             finAr.append(hexAr[row2][(col2 + colShift)  % 4])
+            app = True
         if col1 == col2:
             finAr.append(hexAr[(row1 + rowShift)  % 4][col1])
             finAr.append(hexAr[(row2 + rowShift)  % 4][col2])
-    
-        finAr.append(hexAr[row1][col1])
-        finAr.append(hexAr[row2][col2])
+            app = True
+        if (not app):
+            finAr.append(hexAr[row1][col1])
+            finAr.append(hexAr[row2][col2])
         pos += 1
     
     return finAr
@@ -108,9 +111,15 @@ def decode(inputCiphertextfile, keyfile):
             i += 1
     return finStr
 
-def blockkey(key, nonce):
+def encode2(key, nonce):
     blockkey = hexplayfair(key,nonce)
-    saveHex(blockkey, "blockkey")
+    saveHex(blockkey, "key.txt")
+    encode("input.txt","key.txt","output.txt")
+
+def decode2(key, nonce):
+    blockkey = hexplayfair(key,nonce)
+    saveHex(blockkey, "key.txt")
+    decode("output.txt","key.txt")
     
 def walker():   
     if sys.argv[1] == 'encode':
@@ -122,11 +131,8 @@ def walker():
 
 
 #runner()
-
-#hexplayfair(32, 32)
+print(decode2(key, nonce))
+#print(hexplayfair(key, nonce))
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
 # print(hexdump("testing"))
-text = "hi how are you doing. This is a secret message"
-length = 5
-print(splitText(text, length))

@@ -13,6 +13,10 @@ Added way to save Hex to a file
 Started working on splitting text into the length of the key
 Added commands to makefile
 
+### 5/24/24
+
+fixed splitting text and started texting hexplayfair
+Started making main functions and encode and decode functions
 
 ## Spencer Klem
 
