@@ -33,6 +33,8 @@ def splitText(text, length):
 
 
 def hexplayfair (num1, num2):
+    colShift = 1
+    rowShift = 1
     hexAr = [[0x0, 0x1, 0x2, 0x3],
              [0x4, 0x5, 0x6, 0x7],
              [0x8, 0x9, 0xa, 0xb],
@@ -44,12 +46,22 @@ def hexplayfair (num1, num2):
     while pos < len(hex1):
         i = int(hex1[pos], 16)
         j = int(hex2[pos], 16)
-        finAr.append(hexAr[i % 4][j / 4])
-        finAr.append(hexAr[j % 4][i / 4])
+        row1 = i % 4
+        row2 = j % 4
+        col1 = i / 4
+        col2 = j / 4
+        if row1 == row2:
+            finAr.append(hexAr[row1][(col1 + colShift)  % 4])
+            finAr.append(hexAr[row2][(col2 + colShift)  % 4])
+        if col1 == col2:
+            finAr.append(hexAr[(row1 + rowShift)  % 4][col1])
+            finAr.append(hexAr[(row2 + rowShift)  % 4][col2])
+    
+        finAr.append(hexAr[row1][col1])
+        finAr.append(hexAr[row2][col2])
         pos += 1
     
     return finAr
-    pass
 
 def saveHex(arr, filename):
     with open(filename, 'wb+') as f:
@@ -63,6 +75,8 @@ def saveHex(arr, filename):
 ### STEP 6: REPEAT 
 def hexdump(filename):
     finStr = ''
+
+    
     with open(filename, 'rb+') as f:
         text = f.read()
         for b in text:
