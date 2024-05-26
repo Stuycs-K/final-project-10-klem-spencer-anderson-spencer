@@ -48,15 +48,15 @@ def hexplayfair (num1, num2):
         j = int(hex2[pos], 16)
         row1 = i % 4
         row2 = j % 4
-        col1 = i / 4
-        col2 = j / 4
+        col1 = i // 4
+        col2 = j // 4
         if row1 == row2:
             finAr.append(hexAr[row1][(col1 + colShift)  % 4])
             finAr.append(hexAr[row2][(col2 + colShift)  % 4])
         if col1 == col2:
             finAr.append(hexAr[(row1 + rowShift)  % 4][col1])
             finAr.append(hexAr[(row2 + rowShift)  % 4][col2])
-    
+        
         finAr.append(hexAr[row1][col1])
         finAr.append(hexAr[row2][col2])
         pos += 1
