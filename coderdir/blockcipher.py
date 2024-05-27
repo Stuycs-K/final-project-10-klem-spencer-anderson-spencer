@@ -20,7 +20,10 @@ nonce = 47563948573905
 
 ### STEP 2: COMBINE INTO BLOCKNUM
 ### STEP 3: 4x4 HEX PLAYFAIR
-
+### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
+### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
+### STEP 6: REPEAT
+ 
 #no worky
 def splitText(text, length):
     sects = math.ceil(len(text)/length)
@@ -32,7 +35,7 @@ def splitText(text, length):
     return finArray
 
 
-def hexplayfair (num1, num2):
+def playfairEncode (num1, num2):
     colShift = 1
     rowShift = 1
     hexAr = [[0x0, 0x1, 0x2, 0x3],
@@ -50,29 +53,61 @@ def hexplayfair (num1, num2):
         row2 = j % 4
         col1 = i // 4
         col2 = j // 4
-        if row1 == row2:
-            finAr.append(hexAr[row1][(col1 + colShift)  % 4])
-            finAr.append(hexAr[row2][(col2 + colShift)  % 4])
-        if col1 == col2:
+
+        if row1 == row2 and col1 == col2:
+            finAr.append(hexAr[(row1 + rowShift)  % 4][(col1 + colShift)  % 4])
+            finAr.append(hexAr[(row2 + rowShift)  % 4][(col2 + colShift)  % 4])
+        elif col1 == col2:
             finAr.append(hexAr[(row1 + rowShift)  % 4][col1])
             finAr.append(hexAr[(row2 + rowShift)  % 4][col2])
-        
-        finAr.append(hexAr[row1][col1])
-        finAr.append(hexAr[row2][col2])
+        elif row1 == row2:
+            finAr.append(hexAr[row1][(col1 + colShift)  % 4])
+            finAr.append(hexAr[row2][(col2 + colShift)  % 4])
+        else:
+            finAr.append(hexAr[row1][col1])
+            finAr.append(hexAr[row2][col2])
         pos += 1
     
     return finAr
+
+
+def playfairDecode (intAr):
+    colShift = -1
+    rowShift = -1
+    hexAr = [[0x0, 0x1, 0x2, 0x3],
+             [0x4, 0x5, 0x6, 0x7],
+             [0x8, 0x9, 0xa, 0xb],
+             [0xc, 0xd, 0xe, 0xf]]
+    finAr = [[], []]
+    pos = 0
+    while pos < len(intAr):
+        i = intAr[pos]
+        j = intAr[pos + 1]
+        row1 = i % 4
+        row2 = j % 4
+        col1 = i // 4
+        col2 = j // 4
+        if row1 == row2 and col1 == col2:
+            finAr[0].append(hexAr[(row1 + rowShift)  % 4][(col1 + colShift)  % 4])
+            finAr[1].append(hexAr[(row2 + rowShift)  % 4][(col2 + colShift)  % 4])
+        elif col1 == col2:
+            finAr[0].append(hexAr[(row1 + rowShift)  % 4][col1])
+            finAr[1].append(hexAr[(row2 + rowShift)  % 4][col2])
+        elif row1 == row2:
+            finAr[0].append(hexAr[row1][(col1 + colShift)  % 4])
+            finAr[1].append(hexAr[row2][(col2 + colShift)  % 4])
+        else:
+            finAr[0].append(hexAr[row1][col1])
+            finAr[1].append(hexAr[row2][col2])    
+        pos += 2
+    return finAr
+
 
 def saveHex(arr, filename):
     with open(filename, 'wb+') as f:
         for a in arr:
             f.write(bytes((a,)))
 
-
-
-### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
-### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
-### STEP 6: REPEAT 
 def hexdump(filename):
     finStr = ''
 
@@ -85,7 +120,7 @@ def hexdump(filename):
     f.close()
     return finStr
 
-def encode(inputTextfile, keyfile, outputCiphertextfile):
+def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
     with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
         text1 = f1.read()        
         text2 = f2.read()
@@ -96,33 +131,33 @@ def encode(inputTextfile, keyfile, outputCiphertextfile):
             i += 1
         f3.close
 
-def decode(inputCiphertextfile, keyfile):
+def hexDecode(inputCiphertextfile, keyfile):
     with open(inputCiphertextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2:
         text1 = f1.read()        
         text2 = f2.read()
         i = 0
-        finStr = ''
+        finAr = []
         while (i < len(text1)):
             b1 = text1[i] ^ text2[i % len(text2)]
-            finStr +=chr(b1)
+            finAr.append(b1)
             i += 1
-    return finStr
+    return finAr
 
 def runner():
     if sys.argv[1] == 'hexdump':
         print(hexdump(sys.argv[2]))    
     elif sys.argv[1] == 'encode':
-        encode(sys.argv[2], sys.argv[3], sys.argv[4])
+        hexEncode(sys.argv[2], sys.argv[3], sys.argv[4])
     elif sys.argv[1] == 'decode':
-        print(decode(sys.argv[2], sys.argv[3]))
+        print(hexDecode(sys.argv[2], sys.argv[3]))
 
 
 #runner()
 
-#hexplayfair(32, 32)
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
 # print(hexdump("testing"))
 text = "hi how are you doing. This is a secret message"
 length = 5
 print(splitText(text, length))
+print(playfairDecode(playfairEncode(32, 32)))
