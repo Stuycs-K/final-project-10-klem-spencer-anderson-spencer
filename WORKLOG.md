@@ -25,3 +25,6 @@ Implemented the hexplayfair cipher given 2 integer numbers.
 
 ### 5/24/24
 Cleaned up code and variables, fixed up hexplayfair so it actually works now (probably).
+
+### 5/27/24
+Added encode and decode functions to playfair cipher.
