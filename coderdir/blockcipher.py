@@ -2,7 +2,9 @@ import sys
 import math
 key = 0x1092795f32a7329
 nonce = 0x4756394e85c73905
-
+IMG = 1
+TEXT = 0
+MODE = IMG
 
 ###### ENCODER
 ### STEP 0: SPLIT PLAINTEXT INTO BLOCKS
@@ -143,6 +145,18 @@ def hexDecode(inputCiphertextfile, keyfile):
             finAr.append(b1)
             i += 1
     return finAr
+def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
+    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
+        text1 = f1.read() 
+             
+        text2 = f2.read()
+        i = 17
+        f3.write(text1[0:17])
+        while (i < len(text1)):
+            b1 = text1[i] ^ text2[i % len(text2)]
+            f3.write(b1.to_bytes(1, byteorder='little'))
+            i += 1
+        f3.close
 
 def runner():
     if sys.argv[1] == 'hexdump':
@@ -161,7 +175,8 @@ def runner():
 text = "hi how are you doing. This is a secret message"
 length = 5
 #print(splitText(text, length))
-hexEncode("img.jpg","key.txt","output.txt")
-finar=(hexDecode("output.txt","key.txt"))
-saveHex(finar, "output.jpg")
+#hexEncode("img.jpg","key.txt","output.txt")
+imgEncode("Orange.jpeg","key.txt","output.png")
+#finar=(hexDecode("output.txt","key.txt"))
+#saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))
