@@ -160,5 +160,8 @@ def runner():
 # print(hexdump("testing"))
 text = "hi how are you doing. This is a secret message"
 length = 5
-print(splitText(text, length))
-print(playfairDecode(playfairEncode(32, 32)))
+#print(splitText(text, length))
+hexEncode("img.jpg","key.txt","output.txt")
+finar=(hexDecode("output.txt","key.txt"))
+saveHex(finar, "output.jpg")
+#print(playfairDecode(playfairEncode(32, 32)))
