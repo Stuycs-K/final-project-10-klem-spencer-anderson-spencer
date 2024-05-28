@@ -28,3 +28,6 @@ Cleaned up code and variables, fixed up hexplayfair so it actually works now (pr
 
 ### 5/27/24
 Added encode and decode functions to playfair cipher.
+
+### 5/28/24
+Worked on nonce, counter, and block encoding
