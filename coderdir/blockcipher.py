@@ -150,12 +150,13 @@ def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
         text1 = f1.read() 
              
         text2 = f2.read()
-        i = 17
-        f3.write(text1[0:17])
+        i = 170
+        f3.write(text1[0:170])
         while (i < len(text1)):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
+        #f3.write(text1[len(text1)-4:])
         f3.close
 
 def runner():
