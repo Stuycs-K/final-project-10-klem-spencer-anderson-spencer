@@ -29,15 +29,6 @@ MODE = IMG
 ### STEP 6: REPEAT
 def nonceIncrement (n, nonce = 123456789123, counter = 4952019383323): 
     return n * counter + nonce
-#no worky
-def splitText(text, length):
-    sects = math.ceil(len(text)/length)
-    i = 0
-    finArray = []
-    while( i<sects):
-        finArray.append(text[i*length:(i+1)*length])
-        i +=1
-    return finArray
 
 #give plaintext in int form and key in int form
 #returns hex array
@@ -53,7 +44,6 @@ def playfairEncode (num1, num2):
     hex2 = hex(num2)[2:]
     pos = 0
     while pos < len(hex1):
-        app = False
         i = int(hex1[pos], 16)
         j = int(hex2[pos], 16)
         row1 = i % 4
@@ -178,7 +168,26 @@ def organizer(mode):
     elif mode == 'decode':
         pass
 #runner()
+def textToHex(textSeg):
+    finStr = ''
+    for char in textSeg:
+        finStr += hex(char)
+#to be finished
+def fullEncode(outputfile, message):
+    #split text 
+    n = 4
+    seg = 0
+    finHexAr = []
+    while seg < len(message):
+        pos = seg
+        while (pos - seg) < n and pos < len(message):
+            encodeNum = int(textToHex(message[pos]), 16)
+            hexAr = playfairEncode(encodeNum, nonce)
+            nonceIncrement(pos)
+            pos += 1
 
+        finHexAr = finHexAr + hexAr
+        seg += n
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
 # print(hexdump("testing"))
@@ -186,7 +195,7 @@ text = "hi how are you doing. This is a secret message"
 length = 5
 #print(splitText(text, length))
 #hexEncode("img.jpg","key.txt","output.txt")
-hexEncode("img.jpg","key.txt","output.jpg")
-finar=(hexDecode("output.jpg","key.txt"))
-saveHex(finar, "output.jpg")
+#hexEncode("img.jpg","key.txt","output.jpg")
+#finar=(hexDecode("output.jpg","key.txt"))
+#saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))

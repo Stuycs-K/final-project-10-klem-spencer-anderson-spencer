@@ -40,3 +40,6 @@ Added encode and decode functions to playfair cipher.
 
 ### 5/28/24
 Worked on nonce, counter, and block encoding
+
+### 5/29/24
+Worked on function that combines all items, reworked text splitting
