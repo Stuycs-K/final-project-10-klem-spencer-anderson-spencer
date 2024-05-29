@@ -6,6 +6,8 @@ IMG = 1
 TEXT = 0
 MODE = IMG
 
+
+
 ###### ENCODER
 ### STEP 0: SPLIT PLAINTEXT INTO BLOCKS
 ### STEP 1: NONCE, COUNTER
@@ -25,7 +27,8 @@ MODE = IMG
 ### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
 ### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
 ### STEP 6: REPEAT
- 
+def nonceIncrement (n, nonce = 123456789123, counter = 4952019383323): 
+    return n * counter + nonce
 #no worky
 def splitText(text, length):
     sects = math.ceil(len(text)/length)
@@ -36,7 +39,8 @@ def splitText(text, length):
         i +=1
     return finArray
 
-
+#give plaintext in int form and key in int form
+#returns hex array
 def playfairEncode (num1, num2):
     colShift = 1
     rowShift = 1
@@ -73,7 +77,8 @@ def playfairEncode (num1, num2):
     
     return finAr
 
-
+#give int Ar, returns a 2d array, first array inside is
+#number, second is key in hex
 def playfairDecode (intAr):
     colShift = -1
     rowShift = -1
@@ -167,7 +172,11 @@ def runner():
     elif sys.argv[1] == 'decode':
         print(hexDecode(sys.argv[2], sys.argv[3]))
 
-
+def organizer(mode):
+    if mode == 'encode':
+        pass
+    elif mode == 'decode':
+        pass
 #runner()
 
 # x = [0x1,0x2,0x3, 0xa, 0xff]
