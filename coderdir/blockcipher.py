@@ -155,13 +155,13 @@ def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
         text1 = f1.read() 
              
         text2 = f2.read()
-        i = 170
+        i = 1680000
         f3.write(text1[0:i])
-        while (i < len(text1)):
+        while (i < len(text1)-24):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
-        
+        f3.write(text1[1680313:])
         f3.close
 
 def runner():
@@ -186,7 +186,7 @@ text = "hi how are you doing. This is a secret message"
 length = 5
 #print(splitText(text, length))
 #hexEncode("img.jpg","key.txt","output.txt")
-hexEncode("img.jpg","key.txt","output.jpg")
-finar=(hexDecode("output.jpg","key.txt"))
-saveHex(finar, "output.jpg")
+imgEncode("hi2.png","key.txt","output.png")
+#finar=(hexDecode("output.jpg","key.txt"))
+#saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))
