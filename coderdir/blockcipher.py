@@ -156,7 +156,7 @@ def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
-        #f3.write(text1[len(text1)-4:])
+        
         f3.close
 
 def runner():
@@ -177,7 +177,7 @@ text = "hi how are you doing. This is a secret message"
 length = 5
 #print(splitText(text, length))
 #hexEncode("img.jpg","key.txt","output.txt")
-imgEncode("hi.png","key.txt","output.png")
-#finar=(hexDecode("output.txt","key.txt"))
-#saveHex(finar, "output.jpg")
+hexEncode("img.jpg","key.txt","output.jpg")
+finar=(hexDecode("output.jpg","key.txt"))
+saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))

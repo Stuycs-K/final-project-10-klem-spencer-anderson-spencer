@@ -18,6 +18,11 @@ Added commands to makefile
 fixed splitting text and started texting hexplayfair
 Started making main functions and encode and decode functions
 
+### 5/28/24
+
+started working on making the image viewable when it's encoded to see the effects of our encoding
+Ran into some difficulties
+
 ## Spencer Klem
 
 ### 5/22/24

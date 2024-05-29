@@ -4,4 +4,10 @@
 Spencer Anderson, Spencer Klem, Period 10
 ## Overview
 Implements a block cipher, which uses a hexidecimal playfair cipher to encode each block.
+Then we Xor that block cipher with the plain text to create the cipher text.
+
 ## Instructions
+
+make encode ARGS="plaintext.txt key.txt cipher.txt"
+make decode ARGS="cipher.txt key.text"
+
