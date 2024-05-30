@@ -42,4 +42,4 @@ Added encode and decode functions to playfair cipher.
 Worked on nonce, counter, and block encoding
 
 ### 5/29/24
-Worked on function that combines all items, reworked text splitting
+Worked on function that combines all items and runs program, reworked text splitting
