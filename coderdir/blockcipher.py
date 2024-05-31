@@ -27,17 +27,11 @@ MODE = IMG
 ### STEP 4: USE GENERALKEY + BLOCKNUM AND PLAYFAIR TO GET BLOCKKEY
 ### STEP 5: XOR BLOCKKEY AND CIPHERTEXT
 ### STEP 6: REPEAT
+
+
 def nonceIncrement (n, nonce = 123456789123, counter = 4952019383323): 
     return n * counter + nonce
-#no worky
-def splitText(text, length):
-    sects = math.ceil(len(text)/length)
-    i = 0
-    finArray = []
-    while( i<sects):
-        finArray.append(text[i*length:(i+1)*length])
-        i +=1
-    return finArray
+
 
 #give plaintext in int form and key in int form
 #returns hex array
@@ -52,8 +46,7 @@ def playfairEncode (num1, num2):
     hex1 = hex(num1)[2:]
     hex2 = hex(num2)[2:]
     pos = 0
-    while pos < len(hex1):
-        app = False
+    while pos < len(hex1) and pos < len(hex2):
         i = int(hex1[pos], 16)
         j = int(hex2[pos], 16)
         row1 = i % 4
@@ -76,6 +69,7 @@ def playfairEncode (num1, num2):
         pos += 1
     
     return finAr
+
 
 #give int Ar, returns a 2d array, first array inside is
 #number, second is key in hex
@@ -114,12 +108,11 @@ def playfairDecode (intAr):
 def saveHex(arr, filename):
     with open(filename, 'wb+') as f:
         for a in arr:
-            f.write(bytes((a,)))
+            f.write(bytes(a,))
+
 
 def hexdump(filename):
-    finStr = ''
-
-    
+    finStr = ''    
     with open(filename, 'rb+') as f:
         text = f.read()
         for b in text:
@@ -127,6 +120,7 @@ def hexdump(filename):
             finStr += b.hex() + ' '
     f.close()
     return finStr
+
 
 def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
     with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
@@ -164,6 +158,35 @@ def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
         f3.write(text1[1680313:])
         f3.close
 
+def textToHex(textSeg):
+    finStr = ''
+    for character in textSeg:
+        finStr +=  hex(ord(character))
+    return finStr
+#to be finished
+
+def fullEncode(outputfile, message, key):
+    #split text 
+    n = 6
+    seg = 0
+    finHexAr = []
+    while seg < len(message):
+        pos = seg
+        while (pos - seg) < n and pos < len(message):
+            encodeNum = int(textToHex(message[pos]), 16)
+            hexAr = playfairEncode(encodeNum, nonce)
+            nonceIncrement(pos)
+            pos += 1
+
+        finHexAr = finHexAr + hexAr
+        seg += n
+    saveHex(finHexAr, 'input.txt')
+    keyNumArr = []
+    for character in key:
+        keyNumArr.append(int(textToHex(character), 16))
+    saveHex(textToHex(keyNumArr), 'key.txt')
+    hexEncode('input.txt', 'key.txt', outputfile)
+
 def runner():
     if sys.argv[1] == 'hexdump':
         print(hexdump(sys.argv[2]))    
@@ -177,7 +200,6 @@ def organizer(mode):
         pass
     elif mode == 'decode':
         pass
-#runner()
 
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
@@ -225,3 +247,8 @@ imgEncode("hi2.png","key.txt","output.png")
 
 # cv2.waitKey()
 # cv2.destroyAllWindows()
+#hexEncode("img.jpg","key.txt","output.jpg")
+#finar=(hexDecode("output.jpg","key.txt"))
+#saveHex(finar, "output.jpg")
+#print(playfairDecode(playfairEncode(32, 32)))
+#fullEncode('output.txt', text, 'histuff')
