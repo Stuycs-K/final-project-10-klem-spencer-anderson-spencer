@@ -23,6 +23,15 @@ Started making main functions and encode and decode functions
 started working on making the image viewable when it's encoded to see the effects of our encoding
 Ran into some difficulties
 
+### 5/29/24
+
+Started researching other ways to xor image and key, lost some progress because computer froze at school
+
+### 5/30/24
+
+Worked on presentation.md
+
+
 ## Spencer Klem
 
 ### 5/22/24
