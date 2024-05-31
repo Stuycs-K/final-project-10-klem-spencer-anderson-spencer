@@ -190,6 +190,13 @@ def fullEncode(outputfile, message, key):
     saveHex(keyNumArr, 'key.txt')
     hexEncode('input.txt', 'key.txt', outputfile)
 
+def fullDecode(inputfile, outputfile, key):
+    keyNumArr = []
+    for character in key:
+        keyNumArr.append(int(textToHex(character), 16))
+    saveHex(keyNumArr, 'key.txt')
+    hexDecode(inputfile, 'key.txt', 'input.txt')
+    
 def runner():
     if sys.argv[1] == 'hexdump':
         print(hexdump(sys.argv[2]))    

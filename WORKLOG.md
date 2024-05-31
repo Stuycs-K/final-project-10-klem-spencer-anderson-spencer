@@ -55,3 +55,7 @@ Worked on function that combines all items and runs program, reworked text split
 
 ### 5/30/24
 Working on combining things and bug-fixing. Lots of bug-fixing. :(
+
+### 5/31/24
+
+Finished full encode, after more bug-fixing. :) Started work on full decode.
