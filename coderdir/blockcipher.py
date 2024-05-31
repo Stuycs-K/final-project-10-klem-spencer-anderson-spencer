@@ -212,4 +212,4 @@ length = 5
 #finar=(hexDecode("output.jpg","key.txt"))
 #saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))
-fullEncode('output.txt', text, 'histuff')
+#fullEncode('output.txt', text, 'histuff')

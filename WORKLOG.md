@@ -43,3 +43,6 @@ Worked on nonce, counter, and block encoding
 
 ### 5/29/24
 Worked on function that combines all items and runs program, reworked text splitting
+
+### 5/30/24
+Working on combining things and bug-fixing. Lots of bug-fixing. :(
