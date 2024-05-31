@@ -162,6 +162,7 @@ def textToHex(textSeg):
     finStr = ''
     for character in textSeg:
         finStr +=  hex(ord(character))
+        
     return finStr
 #to be finished
 
@@ -180,11 +181,13 @@ def fullEncode(outputfile, message, key):
 
         finHexAr = finHexAr + hexAr
         seg += n
+
+
     saveHex(finHexAr, 'input.txt')
     keyNumArr = []
     for character in key:
         keyNumArr.append(int(textToHex(character), 16))
-    saveHex(textToHex(keyNumArr), 'key.txt')
+    saveHex(keyNumArr, 'key.txt')
     hexEncode('input.txt', 'key.txt', outputfile)
 
 def runner():
@@ -212,4 +215,5 @@ length = 5
 #finar=(hexDecode("output.jpg","key.txt"))
 #saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))
-#fullEncode('output.txt', text, 'histuff')
+fullEncode('output.txt', text, 'histuff')
+print(hexdump('output.txt'))
