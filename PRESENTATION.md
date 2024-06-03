@@ -22,7 +22,7 @@ In this case, because the key was so short, it was repeated over and over and en
 
 Different keys could cause different colors like this:
 
-![alt text](image-1.png)
+![alt text](img.png)
 
 But either way this didn't do a good job of encoding the image.
 
