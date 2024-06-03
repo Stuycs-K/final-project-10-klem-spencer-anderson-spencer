@@ -1,10 +1,9 @@
-# This document is required.
+###Counter (CTR) Cipher
 
-Images to use
 Hello, this is Spencer and Spencer back for another let's play
-Today we'll be working on a block cipher encoder that fixes many of the problems with typical xoring encoders. 
 
 
+In class we learned about basic 
 Here are some different versions of block chaining 
 ![Alt text](image.png)
 
