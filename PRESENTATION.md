@@ -34,6 +34,19 @@ That means that even if the key is weak and with the counter and nonce, it's sti
 
 One issue is that because the users would know what the headers are supposed to be, they could try to figure out how it was encoded. But as long as the key is long enough to contain the whole header, it won't be easy to figure out how it was encoded.
 
+Implementation of Hex PlayFair:
+
+We learned about typical playfairs, 5 by 5 grids with letters where one letter has to be excluded.
+
+The plaintext would be broken into pairs and there were certain rules to generate the new pairs from the pairs of letters. 
+
+What we did instead was to create pairs using a number from the key turned into integers and a nonce that would be changed throughout the encoding.
+
+Then we had a 4 by 4 playfair that went from 0 to 15 and could be changed for further levels of encoding.
+
+These would create a pair of numbers, so the key would always become twice as long when put through the playfair, making it more secure.
+
+
 
 
 
