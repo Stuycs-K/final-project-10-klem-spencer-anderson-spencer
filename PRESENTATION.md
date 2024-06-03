@@ -35,7 +35,11 @@ One issue is that because the users would know what the headers are supposed to 
 
 Implementation of Hex PlayFair:
 
-We learned about typical playfairs, 5 by 5 grids with letters where one letter has to be excluded.
+We learned about typical playfairs, 5 by 5 grids with letters where one letter has to be excluded (typically i or j replace each other)
+
+
+![alt text](playfair.png)
+
 
 The plaintext would be broken into pairs and there were certain rules to generate the new pairs from the pairs of letters. 
 
