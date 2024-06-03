@@ -116,20 +116,23 @@ def hexdump(filename):
 
 
 def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
-    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
+    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'wb+') as f3:
         text1 = f1.read()        
         text2 = f2.read()
+        #print(text1, text2)
         i = 0
         while (i < len(text1)):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
+            print(b1, i)
         f3.close
 
 def hexDecode(inputCiphertextfile, keyfile):
     with open(inputCiphertextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2:
         text1 = f1.read()        
         text2 = f2.read()
+        #print(text2)
         i = 0
         finAr = []
         while (i < len(text1)):
@@ -185,7 +188,7 @@ def fullEncode(outputfile, message, key):
     #print(len(finHexAr))
     #print(finHexAr)
 
-    saveHex(finHexAr, 'input.txt')
+    #saveHex(finHexAr, 'input.txt')
     #saveHex(key, 'key.txt')
     hexEncode('input.txt', 'key.txt', outputfile)
 
@@ -280,6 +283,10 @@ length = 5
 #print(playfairEncode(10, 12))
 #print(playfairDecode([10,3]))
 
-#fullEncode('output.txt', text, 'histuff')
-#fullDecode('output.txt', 'extra.txt', 'histuff')
+fullEncode('output.txt', text, 'histuff')
+fullDecode('output.txt', 'extra.txt', 'histuff')
 #print(chr(8 * 16 + 4))
+#hexEncode('input.txt', 'key.txt', 'output.txt')
+#print(hexdump('input.txt'))
+##x = hexDecode('output.txt', 'key.txt')
+#for item in x: print(chr(item))
