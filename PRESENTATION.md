@@ -16,7 +16,7 @@ To create the block cipher we used the nonce and a key and tried a playfair ciph
 This allows us to encode any type of document being text, images, and more.
 
 An example of what could happen if the key doesn't change everytime is this ECB Linux Penguin
-![alt text](image.png)
+![alt text](image2.png)
 
 In this case, because the key was so short, it was repeated over and over and ended up encoding the image in a predicable manner. 
 
@@ -33,5 +33,20 @@ That means that if someone was to intercept our image, they would be unable to e
 That means that even if the key is weak and with the counter and nonce, it's still obvious to crack, the hacker would be unable to clearly see what the image was supposed to be like with the linux penguin
 
 One issue is that because the users would know what the headers are supposed to be, they could try to figure out how it was encoded. But as long as the key is long enough to contain the whole header, it won't be easy to figure out how it was encoded.
+
+Implementation of Hex PlayFair:
+
+We learned about typical playfairs, 5 by 5 grids with letters where one letter has to be excluded.
+
+The plaintext would be broken into pairs and there were certain rules to generate the new pairs from the pairs of letters. 
+
+What we did instead was to create pairs using a number from the key turned into integers and a nonce that would be changed throughout the encoding.
+
+Then we had a 4 by 4 playfair that went from 0 to 15 and could be changed for further levels of encoding.
+
+These would create a pair of numbers, so the key would always become twice as long when put through the playfair, making it more secure.
+
+
+
 
 
