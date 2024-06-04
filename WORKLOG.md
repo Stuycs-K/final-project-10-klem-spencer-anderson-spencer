@@ -55,3 +55,14 @@ Worked on function that combines all items and runs program, reworked text split
 
 ### 5/30/24
 Working on combining things and bug-fixing. Lots of bug-fixing. :(
+
+### 6/3/24
+It works now. Fixed the bugs.
+
+### 5/31/24
+
+Finished full encode, after more bug-fixing. :) Started work on full decode.
+
+### 6/1/242
+
+Found out playfair cipher did not in fact work. It now works. Now am not sure if the xor cipher doesn't work or if it is the implementation.

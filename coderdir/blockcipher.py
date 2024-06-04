@@ -1,7 +1,5 @@
 import sys
 import math
-key = 0x1092795f32a7329
-nonce = 0x4756394e85c73905
 IMG = 1
 TEXT = 0
 MODE = IMG
@@ -35,7 +33,7 @@ def nonceIncrement (n, nonce = 123456789123, counter = 4952019383323):
 
 #give plaintext in int form and key in int form
 #returns hex array
-def playfairEncode (num1, num2):
+def playfairEncode (plainnum, keynum):
     colShift = 1
     rowShift = 1
     hexAr = [[0x0, 0x1, 0x2, 0x3],
@@ -43,29 +41,29 @@ def playfairEncode (num1, num2):
              [0x8, 0x9, 0xa, 0xb],
              [0xc, 0xd, 0xe, 0xf]]
     finAr = []
-    hex1 = hex(num1)[2:]
-    hex2 = hex(num2)[2:]
+    plainhex = hex(plainnum)[2:]
+    keyhex = hex(keynum)[2:]
     pos = 0
-    while pos < len(hex1) and pos < len(hex2):
-        i = int(hex1[pos], 16)
-        j = int(hex2[pos], 16)
-        row1 = i % 4
-        row2 = j % 4
-        col1 = i // 4
-        col2 = j // 4
+    while pos < len(plainhex) and pos < len(keyhex):
 
+        i = int(plainhex[pos], 16)
+        j = int(keyhex[pos], 16)
+        row1 = i // 4
+        row2 = j // 4
+        col1 = i % 4
+        col2 = j % 4
         if row1 == row2 and col1 == col2:
-            finAr.append(hexAr[(row1 + rowShift)  % 4][(col1 + colShift)  % 4])
-            finAr.append(hexAr[(row2 + rowShift)  % 4][(col2 + colShift)  % 4])
+            finAr.append(hexAr[(row1 + rowShift)  % 4][(col2 + colShift)  % 4])
+            finAr.append(hexAr[(row2 + rowShift)  % 4][(col1 + colShift)  % 4])
         elif col1 == col2:
-            finAr.append(hexAr[(row1 + rowShift)  % 4][col1])
-            finAr.append(hexAr[(row2 + rowShift)  % 4][col2])
+            finAr.append(hexAr[(row1 + rowShift)  % 4][col2])
+            finAr.append(hexAr[(row2 + rowShift)  % 4][col1])
         elif row1 == row2:
-            finAr.append(hexAr[row1][(col1 + colShift)  % 4])
-            finAr.append(hexAr[row2][(col2 + colShift)  % 4])
+            finAr.append(hexAr[row1][(col2 + colShift)  % 4])
+            finAr.append(hexAr[row2][(col1 + colShift)  % 4])
         else:
-            finAr.append(hexAr[row1][col1])
-            finAr.append(hexAr[row2][col2])
+            finAr.append(hexAr[row1][col2])
+            finAr.append(hexAr[row2][col1])
         pos += 1
     
     return finAr
@@ -80,35 +78,32 @@ def playfairDecode (intAr):
              [0x4, 0x5, 0x6, 0x7],
              [0x8, 0x9, 0xa, 0xb],
              [0xc, 0xd, 0xe, 0xf]]
-    finAr = [[], []]
+    finAr = []
     pos = 0
     while pos < len(intAr):
         i = intAr[pos]
         j = intAr[pos + 1]
-        row1 = i % 4
-        row2 = j % 4
-        col1 = i // 4
-        col2 = j // 4
+        row1 = i // 4
+        row2 = j // 4
+        col1 = i % 4
+        col2 = j % 4
         if row1 == row2 and col1 == col2:
-            finAr[0].append(hexAr[(row1 + rowShift)  % 4][(col1 + colShift)  % 4])
-            finAr[1].append(hexAr[(row2 + rowShift)  % 4][(col2 + colShift)  % 4])
+            finAr.append(hexAr[(row1 + rowShift)  % 4][(col2 + colShift)  % 4])
         elif col1 == col2:
-            finAr[0].append(hexAr[(row1 + rowShift)  % 4][col1])
-            finAr[1].append(hexAr[(row2 + rowShift)  % 4][col2])
+            finAr.append(hexAr[(row1 + rowShift)  % 4][col2])
         elif row1 == row2:
-            finAr[0].append(hexAr[row1][(col1 + colShift)  % 4])
-            finAr[1].append(hexAr[row2][(col2 + colShift)  % 4])
+            finAr.append(hexAr[row1][(col2 + colShift)  % 4])
         else:
-            finAr[0].append(hexAr[row1][col1])
-            finAr[1].append(hexAr[row2][col2])    
+            finAr.append(hexAr[row1][col2])
         pos += 2
     return finAr
 
-
 def saveHex(arr, filename):
+    #print(len(arr))
     with open(filename, 'wb+') as f:
         for a in arr:
-            f.write(bytes(a,))
+            #print(a)
+            f.write(a.to_bytes(1, byteorder='little'))
 
 
 def hexdump(filename):
@@ -123,20 +118,23 @@ def hexdump(filename):
 
 
 def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
-    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
+    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'wb+') as f3:
         text1 = f1.read()        
         text2 = f2.read()
+        #print(text1, text2)
         i = 0
         while (i < len(text1)):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
+            #print(b1, i)
         f3.close
 
 def hexDecode(inputCiphertextfile, keyfile):
     with open(inputCiphertextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2:
         text1 = f1.read()        
         text2 = f2.read()
+        #print(text2)
         i = 0
         finAr = []
         while (i < len(text1)):
@@ -144,6 +142,8 @@ def hexDecode(inputCiphertextfile, keyfile):
             finAr.append(b1)
             i += 1
     return finAr
+
+"""
 def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
     with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
         text1 = f1.read() 
@@ -157,6 +157,7 @@ def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
             i += 1
         f3.write(text1[1680313:])
         f3.close
+"""
 
 def textToHex(textSeg):
     finStr = ''
@@ -164,27 +165,70 @@ def textToHex(textSeg):
         finStr +=  hex(ord(character))
     return finStr
 
-def fullEncode(outputfile, message, key):
+def fullEncode(outputfile, message, keyfile):
+    nonce = 0x4756394e85c73905
     #split text 
     n = 6
     seg = 0
     finHexAr = []
     while seg < len(message):
         pos = seg
+        hexAr = []
         while (pos - seg) < n and pos < len(message):
-            encodeNum = int(textToHex(message[pos]), 16)
-            hexAr = playfairEncode(encodeNum, nonce)
-            nonceIncrement(pos)
+            encodeNum = ord(message[pos])
+            hexAr.append(playfairEncode(encodeNum, nonce))
+            nonce = nonceIncrement(pos)
             pos += 1
+            #print(pos)
+        for item in hexAr:
+            for item2 in item:
+                finHexAr.append(item2)
 
-        finHexAr = finHexAr + hexAr
+        #print(len(finHexAr))
         seg += n
-    saveHex(finHexAr, 'input.txt')
-    keyNumArr = []
-    for character in key:
-        keyNumArr.append(int(textToHex(character), 16))
-    saveHex(textToHex(keyNumArr), 'key.txt')
-    hexEncode('input.txt', 'key.txt', outputfile)
+    realFinHexAr = []
+    pos = 0
+    while pos < len(finHexAr):
+        realFinHexAr.append(16 * finHexAr[pos] + finHexAr[pos + 1])
+        pos += 2
+    #print(finHexAr, len(finHexAr))
+    #print(finHexAr)
+    #print((finHexAr))
+    saveHex(realFinHexAr, 'input.txt')
+    #saveHex(key, 'key.txt')
+    #print(len(hexdump('input.txt')) // 3)
+    hexEncode('input.txt', keyfile, outputfile)
+    #print(len(hexdump('input.txt')) // 3)
+
+def fullDecode(inputfile, outputfile, key):
+    #keyNumArr = []
+    #for character in key:
+    #   keyNumArr.append(ord(character))
+    #saveHex(keyNumArr, 'key.txt')
+    hexAr = hexDecode(inputfile, 'key.txt')
+    #print(hexAr)
+    intAr = []
+    for item in hexAr:
+        intAr.append(item // 16)
+        intAr.append(item % 16)
+    #print(intAr, len(intAr))
+    #finIntAr = playfairDecode(intAr)
+    #print(len(intAr))
+    finIntAr = playfairDecode(intAr)
+    #print(finIntAr, len(finIntAr))
+    #nonce = 0x4756394e85c73905
+    n = 6
+    finStr = ''
+    seg = 0
+    #print(len(finIntAr))
+    while seg < len(finIntAr):
+        curChar = chr(finIntAr[seg] * 16 + finIntAr[seg + 1])
+        finStr += curChar
+        seg += 2
+        #print(ord(curChar))
+    #print(finStr, len(finStr))
+    #print(finHexAr)
+    return finStr
 
 def runner():
     if sys.argv[1] == 'hexdump':
@@ -203,13 +247,61 @@ def organizer(mode):
 # x = [0x1,0x2,0x3, 0xa, 0xff]
 # saveHex(x, "testing")
 # print(hexdump("testing"))
+
 text = "hi how are you doing. This is a secret message"
 length = 5
 #print(splitText(text, length))
 #hexEncode("img.jpg","key.txt","output.txt")
-
-#hexEncode("img.jpg","key.txt","output.jpg")
+#imgEncode("hi2.png","key.txt","output.png")
 #finar=(hexDecode("output.jpg","key.txt"))
 #saveHex(finar, "output.jpg")
 #print(playfairDecode(playfairEncode(32, 32)))
-#fullEncode('output.txt', text, 'histuff')
+
+# # Load original image
+# demo = cv2.imread(<path to jpeg>)
+# r, c, t = demo.shape
+
+# # Display original image
+# cv2.imshow("Original image", demo)
+# cv2.waitKey()
+
+# # Create random key
+# key = random.randint(256, size = (r, c, t))
+
+# # Encryption
+# # Iterate over the image
+# encrypted_image = np.zeros((r, c, t), np.uint8)
+# for row in range(r):
+#     for column in range(c):
+#         for depth in range(t):
+#             encrypted_image[row, column, depth] = demo[row, column, depth] ^ key[row, column, depth] 
+            
+# cv2.imshow("Encrypted image", encrypted_image)
+# cv2.waitKey()
+
+# # Decryption
+# # Iterate over the encrypted image
+# decrypted_image = np.zeros((r, c, t), np.uint8)
+# for row in range(r):
+#     for column in range(c):
+#         for depth in range(t):
+#             decrypted_image[row, column, depth] = encrypted_image[row, column, depth] ^ key[row, column, depth] 
+            
+# cv2.imshow("Decrypted Image", decrypted_image)
+
+# cv2.waitKey()
+# cv2.destroyAllWindows()
+#hexEncode("img.jpg","key.txt","output.jpg")
+#finar=(hexDecode("output.jpg","key.txt"))
+#saveHex(finar, "output.jpg")
+
+#print(playfairEncode(10, 12))
+#print(playfairDecode([10,3]))
+
+fullEncode('output.txt', text, 'key.txt')
+print(fullDecode('output.txt', 'extra.txt', 'histuff123'))
+#print(chr(8 * 16 + 4))
+#hexEncode('input.txt', 'key.txt', 'output.txt')
+#print(hexdump('input.txt'))
+##x = hexDecode('output.txt', 'key.txt')
+#for item in x: print(chr(item))
