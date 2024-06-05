@@ -99,10 +99,8 @@ def playfairDecode (intAr):
     return finAr
 
 def saveHex(arr, filename):
-    #print(len(arr))
     with open(filename, 'wb+') as f:
         for a in arr:
-            #print(a)
             f.write(a.to_bytes(1, byteorder='little'))
 
 
@@ -121,20 +119,17 @@ def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
     with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'wb+') as f3:
         text1 = f1.read()        
         text2 = f2.read()
-        #print(text1, text2)
         i = 0
         while (i < len(text1)):
             b1 = text1[i] ^ text2[i % len(text2)]
             f3.write(b1.to_bytes(1, byteorder='little'))
             i += 1
-            #print(b1, i)
         f3.close
 
 def hexDecode(inputCiphertextfile, keyfile):
     with open(inputCiphertextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2:
         text1 = f1.read()        
         text2 = f2.read()
-        #print(text2)
         i = 0
         finAr = []
         while (i < len(text1)):
@@ -165,55 +160,32 @@ def fullEncode(outputfile, message, keyfile):
             hexAr.append(playfairEncode(encodeNum, nonce))
             nonce = nonceIncrement(pos)
             pos += 1
-            #print(pos)
         for item in hexAr:
             for item2 in item:
                 finHexAr.append(item2)
-
-        #print(len(finHexAr))
         seg += n
     realFinHexAr = []
     pos = 0
     while pos < len(finHexAr):
         realFinHexAr.append(16 * finHexAr[pos] + finHexAr[pos + 1])
         pos += 2
-    #print(finHexAr, len(finHexAr))
-    #print(finHexAr)
-    #print((finHexAr))
     saveHex(realFinHexAr, 'input2.txt')
-    #saveHex(key, 'key.txt')
-    #print(len(hexdump('input.txt')) // 3)
     hexEncode('input2.txt', keyfile, outputfile)
-    #print(len(hexdump('input.txt')) // 3)
 
 def fullDecode(inputfile, outputfile, key):
-    #keyNumArr = []
-    #for character in key:
-    #   keyNumArr.append(ord(character))
-    #saveHex(keyNumArr, 'key.txt')
     hexAr = hexDecode(inputfile, 'key.txt')
-    #print(hexAr)
     intAr = []
     for item in hexAr:
         intAr.append(item // 16)
         intAr.append(item % 16)
-    #print(intAr, len(intAr))
-    #finIntAr = playfairDecode(intAr)
-    #print(len(intAr))
     finIntAr = playfairDecode(intAr)
-    #print(finIntAr, len(finIntAr))
-    #nonce = 0x4756394e85c73905
     n = 6
     finStr = ''
     seg = 0
-    #print(len(finIntAr))
     while seg < len(finIntAr):
         curChar = chr(finIntAr[seg] * 16 + finIntAr[seg + 1])
         finStr += curChar
         seg += 2
-        #print(ord(curChar))
-    #print(finStr, len(finStr))
-    #print(finHexAr)
     return finStr
 
 def runner():
@@ -224,7 +196,6 @@ def runner():
             text = file.read()
             fullEncode(sys.argv[2],text,sys.argv[4])
             file.close()
-        #hexEncode(sys.argv[2], sys.argv[3], sys.argv[4])
     elif sys.argv[1] == 'decode':
         with open(sys.argv[4],"r") as file:
             text = file.read()
@@ -232,8 +203,6 @@ def runner():
             with open(sys.argv[3], "w") as file2:
                 file2.write(text2)
                 file2.close()
-                
-        #print(hexDecode(sys.argv[2], sys.argv[3]))
 
 
 
