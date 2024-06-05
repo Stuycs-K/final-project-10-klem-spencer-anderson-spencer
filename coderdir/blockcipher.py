@@ -234,9 +234,15 @@ def runner():
     if sys.argv[1] == 'hexdump':
         print(hexdump(sys.argv[2]))    
     elif sys.argv[1] == 'encode':
-        hexEncode(sys.argv[2], sys.argv[3], sys.argv[4])
+        with open(sys.argv[3],"r") as file:
+            text = file.read()
+            fullEncode(sys.argv[2],text,sys.argv[4])
+        #hexEncode(sys.argv[2], sys.argv[3], sys.argv[4])
     elif sys.argv[1] == 'decode':
-        print(hexDecode(sys.argv[2], sys.argv[3]))
+        with open(sys.argv[4],"r") as file:
+            text = file.read()
+            print(fullDecode(sys.argv[2],sys.argv[3],text))
+        #print(hexDecode(sys.argv[2], sys.argv[3]))
 
 def organizer(mode):
     if mode == 'encode':
