@@ -27,6 +27,7 @@ MODE = IMG
 ### STEP 6: REPEAT
 
 
+#increments the nonce by the counter
 def nonceIncrement (n, nonce = 123456789123, counter = 4952019383323): 
     return n * counter + nonce
 
@@ -105,7 +106,7 @@ def saveHex(arr, filename):
             #print(a)
             f.write(a.to_bytes(1, byteorder='little'))
 
-
+#dumps bytes in hex form
 def hexdump(filename):
     finStr = ''    
     with open(filename, 'rb+') as f:
@@ -116,7 +117,7 @@ def hexdump(filename):
     f.close()
     return finStr
 
-
+#encodes xor
 def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
     with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'wb+') as f3:
         text1 = f1.read()        
@@ -130,6 +131,7 @@ def hexEncode(inputTextfile, keyfile, outputCiphertextfile):
             #print(b1, i)
         f3.close
 
+#decodes xor
 def hexDecode(inputCiphertextfile, keyfile):
     with open(inputCiphertextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2:
         text1 = f1.read()        
@@ -144,13 +146,14 @@ def hexDecode(inputCiphertextfile, keyfile):
     return finAr
 
 
-
+#converts text to hex of ascii
 def textToHex(textSeg):
     finStr = ''
     for character in textSeg:
         finStr +=  hex(ord(character))
     return finStr
 
+#full encodes 
 def fullEncode(outputfile, message, keyfile):
     nonce = 0x4756394e85c73905
     #split text 
@@ -178,18 +181,12 @@ def fullEncode(outputfile, message, keyfile):
         realFinHexAr.append(16 * finHexAr[pos] + finHexAr[pos + 1])
         pos += 2
     #print(finHexAr, len(finHexAr))
-    #print(finHexAr)
-    #print((finHexAr))
     saveHex(realFinHexAr, 'input2.txt')
     #saveHex(key, 'key.txt')
-    #print(len(hexdump('input.txt')) // 3)
     hexEncode('input2.txt', keyfile, outputfile)
-    #print(len(hexdump('input.txt')) // 3)
 
+#full decodes
 def fullDecode(inputfile, outputfile, key):
-    #keyNumArr = []
-    #for character in key:
-    #   keyNumArr.append(ord(character))
     #saveHex(keyNumArr, 'key.txt')
     hexAr = hexDecode(inputfile, 'key.txt')
     #print(hexAr)
@@ -198,11 +195,8 @@ def fullDecode(inputfile, outputfile, key):
         intAr.append(item // 16)
         intAr.append(item % 16)
     #print(intAr, len(intAr))
-    #finIntAr = playfairDecode(intAr)
-    #print(len(intAr))
     finIntAr = playfairDecode(intAr)
-    #print(finIntAr, len(finIntAr))
-    #nonce = 0x4756394e85c73905
+    #print(finIntAr, len(finIntAr)) 
     n = 6
     finStr = ''
     seg = 0
@@ -216,6 +210,7 @@ def fullDecode(inputfile, outputfile, key):
     #print(finHexAr)
     return finStr
 
+#runs fuction, we recommend using the makefile
 def runner():
     if sys.argv[1] == 'hexdump':
         print(hexdump(sys.argv[2]))    
