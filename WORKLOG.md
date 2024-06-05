@@ -31,6 +31,9 @@ Started researching other ways to xor image and key, lost some progress because 
 
 Worked on presentation.md
 
+## 6/3/24
+
+helped debug full encode and continued work on presentation and readme
 
 ## Spencer Klem
 
