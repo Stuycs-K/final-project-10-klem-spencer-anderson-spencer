@@ -194,10 +194,10 @@ def fullEncode(outputfile, message, keyfile):
     #print(finHexAr, len(finHexAr))
     #print(finHexAr)
     #print((finHexAr))
-    saveHex(realFinHexAr, 'input.txt')
+    saveHex(realFinHexAr, 'input2.txt')
     #saveHex(key, 'key.txt')
     #print(len(hexdump('input.txt')) // 3)
-    hexEncode('input.txt', keyfile, outputfile)
+    hexEncode('input2.txt', keyfile, outputfile)
     #print(len(hexdump('input.txt')) // 3)
 
 def fullDecode(inputfile, outputfile, key):
@@ -237,11 +237,16 @@ def runner():
         with open(sys.argv[3],"r") as file:
             text = file.read()
             fullEncode(sys.argv[2],text,sys.argv[4])
+            file.close()
         #hexEncode(sys.argv[2], sys.argv[3], sys.argv[4])
     elif sys.argv[1] == 'decode':
         with open(sys.argv[4],"r") as file:
             text = file.read()
-            print(fullDecode(sys.argv[2],sys.argv[3],text))
+            text2 = fullDecode(sys.argv[2],sys.argv[3],text)
+            with open(sys.argv[3], "w") as file2:
+                file2.write(text2)
+                file2.close()
+                
         #print(hexDecode(sys.argv[2], sys.argv[3]))
 
 def organizer(mode):
@@ -304,8 +309,11 @@ length = 5
 #print(playfairEncode(10, 12))
 #print(playfairDecode([10,3]))
 
-fullEncode('output.txt', text, 'key.txt')
-print(fullDecode('output.txt', 'extra.txt', 'histuff123'))
+#fullEncode('output.txt', text, 'key.txt')
+#print(fullDecode('output.txt', 'extra.txt', 'histuff123'))
+
+runner()
+
 #print(chr(8 * 16 + 4))
 #hexEncode('input.txt', 'key.txt', 'output.txt')
 #print(hexdump('input.txt'))
