@@ -143,21 +143,7 @@ def hexDecode(inputCiphertextfile, keyfile):
             i += 1
     return finAr
 
-"""
-def imgEncode(inputTextfile, keyfile, outputCiphertextfile):
-    with open(inputTextfile, 'rb+') as f1, open(keyfile, 'rb+') as f2,  open(outputCiphertextfile, 'rb+') as f3:
-        text1 = f1.read() 
-             
-        text2 = f2.read()
-        i = 1680000
-        f3.write(text1[0:i])
-        while (i < len(text1)-24):
-            b1 = text1[i] ^ text2[i % len(text2)]
-            f3.write(b1.to_bytes(1, byteorder='little'))
-            i += 1
-        f3.write(text1[1680313:])
-        f3.close
-"""
+
 
 def textToHex(textSeg):
     finStr = ''
@@ -249,73 +235,6 @@ def runner():
                 
         #print(hexDecode(sys.argv[2], sys.argv[3]))
 
-def organizer(mode):
-    if mode == 'encode':
-        pass
-    elif mode == 'decode':
-        pass
 
-# x = [0x1,0x2,0x3, 0xa, 0xff]
-# saveHex(x, "testing")
-# print(hexdump("testing"))
-
-text = "hi how are you doing. This is a secret message"
-length = 5
-#print(splitText(text, length))
-#hexEncode("img.jpg","key.txt","output.txt")
-#imgEncode("hi2.png","key.txt","output.png")
-#finar=(hexDecode("output.jpg","key.txt"))
-#saveHex(finar, "output.jpg")
-#print(playfairDecode(playfairEncode(32, 32)))
-
-# # Load original image
-# demo = cv2.imread(<path to jpeg>)
-# r, c, t = demo.shape
-
-# # Display original image
-# cv2.imshow("Original image", demo)
-# cv2.waitKey()
-
-# # Create random key
-# key = random.randint(256, size = (r, c, t))
-
-# # Encryption
-# # Iterate over the image
-# encrypted_image = np.zeros((r, c, t), np.uint8)
-# for row in range(r):
-#     for column in range(c):
-#         for depth in range(t):
-#             encrypted_image[row, column, depth] = demo[row, column, depth] ^ key[row, column, depth] 
-            
-# cv2.imshow("Encrypted image", encrypted_image)
-# cv2.waitKey()
-
-# # Decryption
-# # Iterate over the encrypted image
-# decrypted_image = np.zeros((r, c, t), np.uint8)
-# for row in range(r):
-#     for column in range(c):
-#         for depth in range(t):
-#             decrypted_image[row, column, depth] = encrypted_image[row, column, depth] ^ key[row, column, depth] 
-            
-# cv2.imshow("Decrypted Image", decrypted_image)
-
-# cv2.waitKey()
-# cv2.destroyAllWindows()
-#hexEncode("img.jpg","key.txt","output.jpg")
-#finar=(hexDecode("output.jpg","key.txt"))
-#saveHex(finar, "output.jpg")
-
-#print(playfairEncode(10, 12))
-#print(playfairDecode([10,3]))
-
-#fullEncode('output.txt', text, 'key.txt')
-#print(fullDecode('output.txt', 'extra.txt', 'histuff123'))
 
 runner()
-
-#print(chr(8 * 16 + 4))
-#hexEncode('input.txt', 'key.txt', 'output.txt')
-#print(hexdump('input.txt'))
-##x = hexDecode('output.txt', 'key.txt')
-#for item in x: print(chr(item))
