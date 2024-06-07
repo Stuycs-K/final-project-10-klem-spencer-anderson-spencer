@@ -12,6 +12,6 @@ cd codedir
 
 make encode ARGS="output.txt input.txt key.txt"
 
-make decode ARGS= "outputtext.txt decoded.txt key.txt"
+make decode ARGS= "output.txt decoded.txt key.txt"
 
 
