@@ -1,6 +1,4 @@
-default: run
-run:
-	@python3 blockcipher.py
+
 encode:
 	@python3 blockcipher.py encode $(ARGS)
 decode:

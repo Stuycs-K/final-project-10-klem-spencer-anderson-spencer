@@ -35,6 +35,10 @@ Worked on presentation.md
 
 helped debug full encode and continued work on presentation and readme
 
+## 6/5/24
+
+worked on makefile, cleaning up code, and tested if it works on a clean clone
+
 ## Spencer Klem
 
 ### 5/22/24
