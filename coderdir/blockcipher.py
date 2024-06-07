@@ -1,8 +1,6 @@
 import sys
 import math
-IMG = 1
-TEXT = 0
-MODE = IMG
+
 
 
 
