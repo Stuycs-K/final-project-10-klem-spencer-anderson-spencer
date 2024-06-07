@@ -1,4 +1,4 @@
-###Counter (CTR) Cipher
+### Counter (CTR) Cipher
 
 Hello, this is Spencer and Spencer back for another let's play
 
@@ -25,15 +25,11 @@ Different keys could cause different colors like this:
 
 But either way this didn't do a good job of encoding the image.
 
-When we use our encoder on an Image. We decided to encode everything, so the header and all of the markers within the image are also encoded.
+We didn't implement the encoding for images, but it would be easy to adjust it, reading the bytes of the input file rather than the text.
 
-That means that if someone was to intercept our image, they would be unable to even open the image getting numerous errors upon trying to open it. 
 
-That means that even if the key is weak and with the counter and nonce, it's still obvious to crack, the hacker would be unable to clearly see what the image was supposed to be like with the linux penguin
 
-One issue is that because the users would know what the headers are supposed to be, they could try to figure out how it was encoded. But as long as the key is long enough to contain the whole header, it won't be easy to figure out how it was encoded.
-
-Implementation of Hex PlayFair:
+### Implementation of Hex PlayFair:
 
 We learned about typical playfairs, 5 by 5 grids with letters where one letter has to be excluded (typically i or j replace each other)
 
