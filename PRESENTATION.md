@@ -49,7 +49,6 @@ Then we had a 4 by 4 playfair that went from 0 to 15 and could be changed for fu
 
 These would create a pair of numbers, so the key would always become twice as long when put through the playfair, making it more secure.
 
-
-
+This means that the cipher is difficult to decode because you not only need to have the exact same playfair cipher configuration used but you also need to know what is done when the rows or columns are the same (how it is shifted), and even if that changes when the two numbers are the exact same.
 
 
