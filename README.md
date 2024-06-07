@@ -10,8 +10,8 @@ Then we Xor that block cipher with the plain text to create the cipher text.
 
 cd codedir 
 
-make encode ARGS="output.txt plaintext.txt key.txt"
+make encode ARGS="output.txt input.txt key.txt"
 
-make decode ARGS= "ciphertext.txt output.txt key.txt"
+make decode ARGS= "outputtext.txt decoded.txt key.txt"
 
 
