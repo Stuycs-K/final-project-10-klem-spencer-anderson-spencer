@@ -17,7 +17,7 @@ In our project, we implemented a block cipher, or the counter type block cipher 
 
 ## Block Ciphers
 
--Encode blocks of data rather than individual bits
+- Encode blocks of data rather than individual bits
 - More often used on fixed data, like a book rather than something changing
 - Some common examples used today are AES and 3DES
 
