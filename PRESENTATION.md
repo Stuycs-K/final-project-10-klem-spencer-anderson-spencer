@@ -3,10 +3,29 @@
 Hello, this is Spencer and Spencer back for another let's play
 
 
-In class we learned about basic 
-Here are some different versions of block chaining 
+In class, we learned about basic encryption types and implemented a XOR stream cipher.
+
+In our project, we implemented a block cipher, or the counter type block cipher to be more precise.
+
+## Stream Ciphers
+
+- Encrypt one bit of data at a time
+- Are fast
+- More resource-intensive
+- Ideal for streaming services with video and voice encryption
+- Can be prone to cascading where one mistake can lead to many more mistakes
+
+## Block Ciphers
+
+-Encode blocks of data rather than individual bits
+- More often used on fixed data, like a book rather than something changing
+- Some common examples used today are AES and 3DES
+
+## Here are some different versions of block chaining
+
 ![Block Chain Encoding](image.png)
 
+These ciphers have been around since 1981 with CTR being added in 2001.
 We decided to use the counter method, which includes a counter and a nonce and we made the counter a large prime number so the block key would be very different everytime.  In this cipher, each part of the text is xored with a different key to make it hard to find patterns and to stop repetition of encoding.
 
 
