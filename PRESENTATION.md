@@ -66,7 +66,11 @@ Each time we had a new block to encode, the counter would be incremented with a 
 These would create a pair of numbers, so the key would always become twice as long as the given key when put through the Playfair, making it more secure, for the key would have to be reused fewer times.
 
 Then we had a 4 by 4 Playfair that went from 0 to 15 and could be changed for further levels of encoding.
-
+``
+hexAr = [[0x0, 0x1, 0x2, 0x3],
+             [0x4, 0x5, 0x6, 0x7],
+             [0x8, 0x9, 0xa, 0xb],
+             [0xc, 0xd, 0xe, 0xf]]``
 
 This means that the cipher is difficult to decode because you not only need to have the exact same Playfair cipher configuration used but you also need to know what is done when the rows or columns are the same (how it is shifted), and even if that changes when the two numbers are the exact same.
 
