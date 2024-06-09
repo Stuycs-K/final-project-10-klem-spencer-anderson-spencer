@@ -202,11 +202,13 @@ def runner():
             file.close()
     elif sys.argv[1] == 'decode':
         with open(sys.argv[4],"r") as file:
+
             text = file.read()
             text2 = fullDecode(sys.argv[2],sys.argv[3],text)
             with open(sys.argv[3], "w") as file2:
                 file2.write(text2)
                 file2.close()
+                file.close()
 
 
 
