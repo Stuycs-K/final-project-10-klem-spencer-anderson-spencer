@@ -67,7 +67,7 @@ These would create a pair of numbers, so the key would always become twice as lo
 
 Then we had a 4 by 4 Playfair that went from 0 to 15 and could be changed for further levels of encoding.
 
-![image](Screenshot 2024-06-09 154006.png)
+![image](Screenshot_2024-06-09_154006.png)
 
 
 
