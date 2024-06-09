@@ -66,8 +66,8 @@ Each time we had a new block to encode, the counter would be incremented with a 
 These would create a pair of numbers, so the key would always become twice as long as the given key when put through the Playfair, making it more secure, for the key would have to be reused fewer times.
 
 Then we had a 4 by 4 Playfair that went from 0 to 15 and could be changed for further levels of encoding.
-``
-hexAr = [[0x0, 0x1, 0x2, 0x3],
+
+`` hexAr = [[0x0, 0x1, 0x2, 0x3],
 
              [0x4, 0x5, 0x6, 0x7],
              
